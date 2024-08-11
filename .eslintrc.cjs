@@ -44,6 +44,7 @@ const config = {
   parserOptions: {
     project: true,
   },
+  ignorePatterns: ["sst.config.ts"],
 };
 
 module.exports = config;

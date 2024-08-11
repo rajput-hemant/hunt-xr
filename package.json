@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "next dev --turbo --experimental-https",
     "build": "next build",
+    "build:open-next": "open-next build",
     "start": "next start",
     "preview": "next build && next start",
     "lint": "next lint",
@@ -15,6 +16,7 @@
     "clean": "rm -rf .next",
     "cleani": "rm -rf .next && rm -rf node_modules && bun i",
     "ui": "bunx shadcn-ui@latest",
+    "sst": "sst",
     "prepare": "husky"
   },
   "dependencies": {
@@ -35,6 +37,7 @@
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "server-only": "^0.0.1",
+    "sst": "ion",
     "superjson": "^2.2.1",
     "tailwind-merge": "^2.4.0",
     "tailwindcss-animate": "^1.0.7",
@@ -58,6 +61,7 @@
     "eslint-plugin-tailwindcss": "^3.17.4",
     "husky": "^9.1.4",
     "lint-staged": "^15.2.8",
+    "open-next": "^3.0.8",
     "postcss": "8.4.40",
     "prettier": "^3.3.3",
     "prettier-plugin-tailwindcss": "^0.6.6",
