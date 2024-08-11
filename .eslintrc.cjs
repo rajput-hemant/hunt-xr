@@ -9,11 +9,7 @@ const config = {
     "plugin:@typescript-eslint/recommended-type-checked",
     "plugin:@typescript-eslint/stylistic-type-checked",
   ],
-  plugins: [
-    "eslint-plugin-react-compiler",
-    "tailwindcss",
-    "@typescript-eslint",
-  ],
+  plugins: ["tailwindcss", "@typescript-eslint"],
   rules: {
     "tailwindcss/no-custom-classname": "off",
     "tailwindcss/classnames-order": "warn",
