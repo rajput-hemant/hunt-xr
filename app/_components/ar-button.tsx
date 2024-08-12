@@ -21,7 +21,10 @@ export function ARButton() {
   if (isPresenting) return null;
 
   return (
-    <Button onClick={() => xrStore?.enterAR()} className="absolute top-10 z-50">
+    <Button
+      onClick={() => xrStore?.enterAR()}
+      className="absolute bottom-10 z-50"
+    >
       Enter AR
     </Button>
   );
