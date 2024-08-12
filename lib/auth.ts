@@ -37,7 +37,7 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
 
   callbacks: {
     signIn: async ({ user }) => {
-      const session = await db.query.sessions.findFirst({
+      const session = await db.query.Session.findFirst({
         where: ({ userId }, { eq }) => eq(userId, user.id!),
       });
 

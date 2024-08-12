@@ -7,7 +7,7 @@ import { signIn } from "next-auth/react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 
-import type { EmailLogin } from "~/lib/validations/auth";
+import type { Email } from "~/lib/validations/auth";
 
 import Button from "~/components/ui/button";
 import {
@@ -18,7 +18,7 @@ import {
   FormMessage,
 } from "~/components/ui/form";
 import { Input } from "~/components/ui/input";
-import { EmailLoginSchema } from "~/lib/validations/auth";
+import { EmailSchema } from "~/lib/validations/auth";
 
 export const EmailLoginForm: React.FC<{
   disabled: boolean;
@@ -29,12 +29,12 @@ export const EmailLoginForm: React.FC<{
   const searchParams = useSearchParams();
   const from = searchParams.get("from");
 
-  const form = useForm<EmailLogin>({
-    resolver: zodResolver(EmailLoginSchema),
+  const form = useForm<Email>({
+    resolver: zodResolver(EmailSchema),
     defaultValues: { email: "" },
   });
 
-  async function handleSubmit(data: EmailLogin) {
+  async function handleSubmit(data: Email) {
     setIsLoading(true);
     setDisabled(true);
 

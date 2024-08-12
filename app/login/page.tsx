@@ -40,7 +40,7 @@ export default function LoginPage() {
             <span className="font-bold">{siteConfig.name}</span>
           </div>
           <p className="text-sm text-muted-foreground">
-            Enter your email to sign in to your account
+            Enter your details to sign in to your account
           </p>
         </div>
 

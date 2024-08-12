@@ -1,7 +1,7 @@
 import parsePhoneNumber from "libphonenumber-js";
 import { z } from "zod";
 
-export const EmailLoginSchema = z.object({
+export const EmailSchema = z.object({
   email: z
     .string()
     .trim()
@@ -9,9 +9,9 @@ export const EmailLoginSchema = z.object({
     .email("Please enter a valid email"),
 });
 
-export type EmailLogin = z.infer<typeof EmailLoginSchema>;
+export type Email = z.infer<typeof EmailSchema>;
 
-export const PhoneNumberLoginSchema = z.object({
+export const PhoneNumberSchema = z.object({
   countryCode: z.string().min(1, "Country code is required"),
   phoneNumber: z
     .string()
@@ -34,12 +34,12 @@ export const PhoneNumberLoginSchema = z.object({
     }),
 });
 
-export type PhoneNumberLogin = z.infer<typeof PhoneNumberLoginSchema>;
+export type PhoneNumber = z.infer<typeof PhoneNumberSchema>;
 
-export const OTPLoginSchema = z.object({
+export const OTPSchema = z.object({
   otp: z.string().min(6, {
     message: "Please enter a valid OTP",
   }),
 });
 
-export type OTPLogin = z.infer<typeof OTPLoginSchema>;
+export type OTP = z.infer<typeof OTPSchema>;

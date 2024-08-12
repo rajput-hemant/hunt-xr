@@ -1,35 +1,38 @@
 CREATE TABLE IF NOT EXISTS "account" (
-	"userId" text NOT NULL,
-	"type" text NOT NULL,
-	"provider" text NOT NULL,
-	"providerAccountId" text NOT NULL,
-	"refresh_token" text,
+	"userId" uuid NOT NULL,
+	"type" varchar(255) NOT NULL,
+	"provider" varchar(255) NOT NULL,
+	"providerAccountId" varchar(255) NOT NULL,
+	"refresh_token" varchar(255),
 	"access_token" text,
 	"expires_at" integer,
-	"token_type" text,
-	"scope" text,
+	"token_type" varchar(255),
+	"scope" varchar(255),
 	"id_token" text,
-	"session_state" text,
+	"session_state" varchar(255),
 	CONSTRAINT "account_provider_providerAccountId_pk" PRIMARY KEY("provider","providerAccountId")
 );
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "session" (
-	"sessionToken" text PRIMARY KEY NOT NULL,
-	"userId" text NOT NULL,
-	"expires" timestamp NOT NULL
+	"sessionToken" varchar(255) PRIMARY KEY NOT NULL,
+	"userId" uuid NOT NULL,
+	"expires" timestamp with time zone NOT NULL
 );
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "user" (
-	"id" text PRIMARY KEY NOT NULL,
-	"name" text,
-	"email" text NOT NULL,
-	"emailVerified" timestamp,
-	"image" text
+	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
+	"name" varchar(255),
+	"email" varchar(255),
+	"phoneNumber" varchar(255),
+	"emailVerified" timestamp with time zone,
+	"image" varchar(255),
+	CONSTRAINT "user_email_unique" UNIQUE("email"),
+	CONSTRAINT "user_phoneNumber_unique" UNIQUE("phoneNumber")
 );
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "verificationToken" (
-	"identifier" text NOT NULL,
-	"token" text NOT NULL,
+	"identifier" varchar(255) NOT NULL,
+	"token" varchar(255) NOT NULL,
 	"expires" timestamp NOT NULL,
 	CONSTRAINT "verificationToken_identifier_token_pk" PRIMARY KEY("identifier","token")
 );

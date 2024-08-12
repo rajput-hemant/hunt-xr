@@ -50,7 +50,8 @@ const Button: React.FCC<ButtonProps> = forwardRef<
       tabIndex={href ? -1 : 0}
       ref={ref}
       className={className}
-      disabled={loading ?? props.disabled}
+      // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
+      disabled={loading || props.disabled}
     >
       <InnerButtonContainerElement href={href} disabled={props.disabled}>
         <span className={cn(`flex w-full flex-1 items-center justify-center`)}>

@@ -6,15 +6,17 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { REGEXP_ONLY_DIGITS } from "input-otp";
 import { getCountries, getCountryCallingCode } from "libphonenumber-js";
 import { useForm } from "react-hook-form";
+import { toast } from "sonner";
 
 import type { CountryCode } from "libphonenumber-js";
 
-import type { OTPLogin, PhoneNumberLogin } from "~/lib/validations/auth";
+import type { OTP, PhoneNumber } from "~/lib/validations/auth";
 
 import Button from "~/components/ui/button";
 import {
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormMessage,
@@ -24,6 +26,7 @@ import { Input } from "~/components/ui/input";
 import {
   InputOTP,
   InputOTPGroup,
+  InputOTPSeparator,
   InputOTPSlot,
 } from "~/components/ui/input-otp";
 import {
@@ -34,26 +37,27 @@ import {
   SelectTrigger,
   SelectValue,
 } from "~/components/ui/select";
+import { sendVerificationCode, verifyOtp } from "~/lib/actions/auth";
 import { cn } from "~/lib/utils";
-import { OTPLoginSchema, PhoneNumberLoginSchema } from "~/lib/validations/auth";
+import { OTPSchema, PhoneNumberSchema } from "~/lib/validations/auth";
 
 export const PhoneLoginForm: React.FC<{
   disabled: boolean;
   setDisabled: React.Dispatch<React.SetStateAction<boolean>>;
-}> = ({ disabled, setDisabled: _ }) => {
-  const [isLoading, _setIsLoading] = React.useState(false);
+}> = ({ disabled, setDisabled }) => {
+  const [isLoading, setIsLoading] = React.useState(false);
   const [isOTPSent, setIsOTPSent] = React.useState(false);
 
-  const phoneform = useForm<PhoneNumberLogin>({
-    resolver: zodResolver(PhoneNumberLoginSchema),
+  const phoneform = useForm<PhoneNumber>({
+    resolver: zodResolver(PhoneNumberSchema),
     defaultValues: {
       countryCode: "US",
       phoneNumber: "",
     },
   });
 
-  const otpform = useForm<OTPLogin>({
-    resolver: zodResolver(OTPLoginSchema),
+  const otpform = useForm<OTP>({
+    resolver: zodResolver(OTPSchema),
     defaultValues: { otp: "" },
   });
 
@@ -61,14 +65,50 @@ export const PhoneLoginForm: React.FC<{
     phoneform.watch().countryCode as CountryCode,
   );
 
-  function handlePhoneSubmit(data: PhoneNumberLogin) {
-    console.log(data);
+  function handlePhoneSubmit(data: PhoneNumber) {
+    setIsLoading(true);
+    setDisabled(true);
 
-    setIsOTPSent(true);
+    toast.promise(
+      sendVerificationCode(data).then(({ error, data }) => {
+        if (error) throw new Error(error);
+        return data;
+      }),
+      {
+        loading: "Sending OTP...",
+        success: "OTP sent successfully",
+        error: (e: Error) => e.message || "Failed to send OTP",
+        finally: () => {
+          setIsLoading(false);
+          setDisabled(false);
+          setIsOTPSent(true);
+        },
+      },
+    );
   }
 
-  function handleOTPSubmit(data: OTPLogin) {
-    console.log(data);
+  function handleOTPSubmit(data: OTP) {
+    setIsLoading(true);
+    setDisabled(true);
+
+    toast.promise(
+      verifyOtp({
+        countryCode: phoneform.watch().countryCode as CountryCode,
+        phoneNumber: phoneform.watch().phoneNumber,
+        otp: data.otp,
+      }).then(({ error }) => {
+        if (error) throw new Error(error);
+      }),
+      {
+        loading: "Verifying OTP...",
+        success: "OTP verified successfully",
+        error: (e: Error) => e.message || "Failed to verify OTP",
+        finally: () => {
+          setIsLoading(false);
+          setDisabled(false);
+        },
+      },
+    );
   }
 
   return (
@@ -165,8 +205,7 @@ export const PhoneLoginForm: React.FC<{
             control={otpform.control}
             name="otp"
             render={({ field }) => (
-              <FormItem className="flex items-center justify-around">
-                <p className="mt-2 text-lg font-medium">Enter OTP:</p>
+              <FormItem className="*:text-center">
                 <FormControl>
                   <InputOTP
                     {...field}
@@ -174,18 +213,27 @@ export const PhoneLoginForm: React.FC<{
                     maxLength={6}
                     pattern={REGEXP_ONLY_DIGITS}
                     autoComplete="one-time-code"
-                    className="w-"
+                    containerClassName="justify-center"
                   >
                     <InputOTPGroup>
                       <InputOTPSlot index={0} />
                       <InputOTPSlot index={1} />
+                    </InputOTPGroup>
+                    <InputOTPSeparator />
+                    <InputOTPGroup>
                       <InputOTPSlot index={2} />
                       <InputOTPSlot index={3} />
+                    </InputOTPGroup>
+                    <InputOTPSeparator />
+                    <InputOTPGroup>
                       <InputOTPSlot index={4} />
                       <InputOTPSlot index={5} />
                     </InputOTPGroup>
                   </InputOTP>
                 </FormControl>
+                <FormDescription>
+                  Enter the 6-digit OTP sent to your phone number
+                </FormDescription>
                 <FormMessage />
               </FormItem>
             )}
