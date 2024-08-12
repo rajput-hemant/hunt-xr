@@ -3,7 +3,9 @@
 import React from "react";
 import { useSearchParams } from "next/navigation";
 
-import { signIn } from "next-auth/react";
+import { Fingerprint } from "lucide-react";
+import { signIn, useSession } from "next-auth/react";
+import { signIn as passKeySignIn } from "next-auth/webauthn";
 import { toast } from "sonner";
 
 import { Icons } from "~/components/icons";
@@ -15,6 +17,7 @@ export const OAuthLogin: React.FC<{
 }> = ({ disabled, setDisabled }) => {
   const [oauthLoading, setOauthLoading] = React.useState<"google">();
 
+  const { status } = useSession();
   const searchParams = useSearchParams();
   const from = searchParams.get("from");
 
@@ -48,14 +51,38 @@ export const OAuthLogin: React.FC<{
   }
 
   return (
-    <Button
-      disabled={disabled}
-      loading={oauthLoading === "google"}
-      onClick={googleSignInHandler}
-      variant="outline"
-      className="w-full"
-    >
-      <Icons.Google className="mr-2 size-4" /> Sign in with Google
-    </Button>
+    <>
+      <Button
+        disabled={disabled}
+        loading={oauthLoading === "google"}
+        onClick={googleSignInHandler}
+        variant="outline"
+        className="w-full"
+      >
+        <Icons.Google className="mr-2 size-4" /> Sign in with Google
+      </Button>
+
+      {status === "authenticated" ?
+        <Button
+          disabled={disabled}
+          loading={oauthLoading === "google"}
+          variant="outline"
+          className="w-full"
+          onClick={() => passKeySignIn("passkey", { action: "register" })}
+        >
+          <Fingerprint className="mr-2 size-5" /> Register new Passkey
+        </Button>
+      : status === "unauthenticated" ?
+        <Button
+          disabled={disabled}
+          loading={oauthLoading === "google"}
+          variant="outline"
+          className="w-full"
+          onClick={() => passKeySignIn("passkey")}
+        >
+          <Fingerprint className="mr-2 size-4" /> Sign in with Passkey
+        </Button>
+      : null}
+    </>
   );
 };

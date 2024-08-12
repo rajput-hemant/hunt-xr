@@ -3,6 +3,8 @@ import "./globals.css";
 import React from "react";
 import dynamic from "next/dynamic";
 
+import { SessionProvider } from "next-auth/react";
+
 import type { Metadata } from "next";
 
 import { Navbar } from "~/components/site-header/navbar";
@@ -67,22 +69,24 @@ export default function RootLayout({ children }: React.PropsWithChildren) {
           disableTransitionOnChange
         >
           <TooltipProvider>
-            <TRPCReactProvider>
-              <Navbar />
+            <SessionProvider>
+              <TRPCReactProvider>
+                <Navbar />
 
-              {children}
+                {children}
 
-              <Scene
-                style={{
-                  position: "fixed",
-                  top: 0,
-                  left: 0,
-                  width: "100dvw",
-                  height: "100dvh",
-                  pointerEvents: "none",
-                }}
-              />
-            </TRPCReactProvider>
+                <Scene
+                  style={{
+                    position: "fixed",
+                    top: 0,
+                    left: 0,
+                    width: "100dvw",
+                    height: "100dvh",
+                    pointerEvents: "none",
+                  }}
+                />
+              </TRPCReactProvider>
+            </SessionProvider>
           </TooltipProvider>
         </ThemeProvider>
 
