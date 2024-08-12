@@ -9,7 +9,7 @@ import { Cube } from "./_components/cube";
 
 export default function HomePage() {
   return (
-    <div className="grid h-dvh place-items-center">
+    <div className="grid h-dvh w-full place-items-center">
       <ARButton />
 
       <View className="absolute inset-0">

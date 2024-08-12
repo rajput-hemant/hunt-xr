@@ -11,7 +11,7 @@ export function Cube() {
       onClick={() => setRed(!red)}
       position={[0, 0, 0]}
     >
-      <boxGeometry />
+      <boxGeometry args={[2, 2, 2]} />
       <meshBasicMaterial color={red ? "red" : "blue"} />
     </mesh>
   );
