@@ -189,7 +189,7 @@ export const PhoneLoginForm: React.FC<{
               />
             </div>
 
-            <Button disabled={disabled} loading={isLoading} className="w-full">
+            <Button block disabled={disabled} loading={isLoading}>
               Send OTP
             </Button>
           </form>
@@ -239,7 +239,7 @@ export const PhoneLoginForm: React.FC<{
             )}
           />
 
-          <Button disabled={disabled} loading={isLoading} className="w-full">
+          <Button block disabled={disabled} loading={isLoading}>
             Verify OTP
           </Button>
         </form>

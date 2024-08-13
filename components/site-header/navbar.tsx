@@ -2,9 +2,7 @@ import Link from "next/link";
 
 import { Bitcoin } from "lucide-react";
 
-import { cn } from "~/lib/utils";
-
-import { buttonVariants } from "../ui/button-variants";
+import Button from "../ui/button";
 import { Header } from "./header";
 
 export function Navbar() {
@@ -25,12 +23,9 @@ export function Navbar() {
         </div>
 
         <nav className="hidden w-full items-center justify-end gap-2 md:flex">
-          <Link
-            href="/login"
-            className={cn(buttonVariants({ size: "lg" }), "rounded-full")}
-          >
+          <Button href="/login" round size="lg">
             <span>Login</span>
-          </Link>
+          </Button>
         </nav>
       </div>
     </Header>

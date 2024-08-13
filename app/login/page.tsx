@@ -5,9 +5,8 @@ import { Bitcoin, ChevronLeft } from "lucide-react";
 
 import type { Metadata } from "next";
 
-import { buttonVariants } from "~/components/ui/button-variants";
+import Button from "~/components/ui/button";
 import { siteConfig } from "~/config/site";
-import { cn } from "~/lib/utils";
 
 import { LoginForm } from "./_components/login-form";
 
@@ -19,18 +18,17 @@ export const metadata: Metadata = {
 export default function LoginPage() {
   return (
     <div className="container flex h-dvh w-full flex-col items-center justify-center">
-      <Link
+      <Button
         href="/"
-        className={cn(
-          buttonVariants({ size: "sm", variant: "outline" }),
-          "absolute left-4 top-4 md:left-8 md:top-8",
-        )}
+        size="sm"
+        variant="outline"
+        className="absolute left-4 top-4 md:left-8 md:top-8"
       >
         <span className="inline-flex items-center">
           <ChevronLeft className="mr-2 size-4" />
           Back
         </span>
-      </Link>
+      </Button>
 
       <div className="mx-auto flex w-full flex-col justify-center space-y-6 sm:w-[350px]">
         <div className="flex flex-col space-y-2 text-center">

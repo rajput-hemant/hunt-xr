@@ -53,36 +53,38 @@ export const OAuthLogin: React.FC<{
   return (
     <>
       <Button
+        block
         disabled={disabled}
         loading={oauthLoading === "google"}
         onClick={googleSignInHandler}
         variant="outline"
-        className="w-full"
       >
         <Icons.Google className="mr-2 size-4" /> Sign in with Google
       </Button>
 
       {status === "authenticated" ?
         <Button
+          block
           disabled={disabled}
           loading={oauthLoading === "google"}
           variant="outline"
-          className="w-full"
           onClick={() => passKeySignIn("passkey", { action: "register" })}
         >
           <Fingerprint className="mr-2 size-5" /> Register new Passkey
         </Button>
       : status === "unauthenticated" ?
         <Button
+          block
           disabled={disabled}
-          loading={oauthLoading === "google"}
           variant="outline"
-          className="w-full"
           onClick={() => passKeySignIn("passkey")}
         >
           <Fingerprint className="mr-2 size-4" /> Sign in with Passkey
         </Button>
-      : null}
+      : <Button block loading variant="outline">
+          Checking Passkey status
+        </Button>
+      }
     </>
   );
 };

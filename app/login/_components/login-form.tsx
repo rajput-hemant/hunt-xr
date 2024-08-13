@@ -53,18 +53,18 @@ export function LoginForm() {
 
       {isEmailMode ?
         <Button
+          block
           disabled={disabled}
           variant="outline"
           onClick={() => setIsEmailMode(false)}
-          className="w-full"
         >
           <Phone className="mr-2 size-4" /> Use Phone Instead
         </Button>
       : <Button
+          block
           disabled={disabled}
           variant="outline"
           onClick={() => setIsEmailMode(true)}
-          className="w-full"
         >
           <Mail className="mr-2 size-4" /> Use Email Instead
         </Button>
