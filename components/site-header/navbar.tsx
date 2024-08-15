@@ -1,6 +1,7 @@
+import Image from "next/image";
 import Link from "next/link";
 
-import { Bitcoin } from "lucide-react";
+import { siteConfig } from "~/config/site";
 
 import Button from "../ui/button";
 import { Header } from "./header";
@@ -10,8 +11,13 @@ export function Navbar() {
     <Header>
       <div className="relative flex w-full items-center justify-between rounded-full py-2">
         <div className="flex w-full items-center gap-2">
-          <div className="flex aspect-square size-14 items-center justify-center rounded-full border border-foreground">
-            <Bitcoin className="size-8" />
+          <div className="flex aspect-square size-14 items-center justify-center overflow-hidden rounded-full border border-foreground">
+            <Image
+              src="/logo-sm.png"
+              width={100}
+              height={100}
+              alt={`${siteConfig.name} logo`}
+            />
           </div>
 
           <Link

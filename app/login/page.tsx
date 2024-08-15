@@ -1,11 +1,13 @@
 import React from "react";
+import Image from "next/image";
 import Link from "next/link";
 
-import { Bitcoin, ChevronLeft } from "lucide-react";
+import { ChevronLeft } from "lucide-react";
 
 import type { Metadata } from "next";
 
 import Button from "~/components/ui/button";
+import { Skeleton } from "~/components/ui/skeleton";
 import { siteConfig } from "~/config/site";
 
 import { LoginForm } from "./_components/login-form";
@@ -32,7 +34,18 @@ export default function LoginPage() {
 
       <div className="mx-auto flex w-full flex-col justify-center space-y-6 sm:w-[350px]">
         <div className="flex flex-col space-y-2 text-center">
-          <Bitcoin className="mx-auto size-12" />
+          <div className="relative mx-auto size-16 overflow-hidden rounded-full border border-foreground drop-shadow-md">
+            <Image
+              src="/logo-sm.png"
+              width={100}
+              height={100}
+              alt={`${siteConfig.name} logo`}
+              className="scale-110"
+            />
+
+            <Skeleton className="-z-10 size-full" />
+          </div>
+
           <div className="text-2xl font-semibold tracking-tight">
             <span>Welcome to</span>{" "}
             <span className="font-bold">{siteConfig.name}</span>

@@ -98,7 +98,7 @@ export const Authenticator = pgTable(
   "authenticator",
   {
     credentialID: text("credentialID").notNull(),
-    userId: text("userId")
+    userId: uuid("userId")
       .notNull()
       .references(() => User.id, { onDelete: "cascade" }),
     providerAccountId: text("providerAccountId").notNull(),
