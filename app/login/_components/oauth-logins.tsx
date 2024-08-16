@@ -10,6 +10,7 @@ import { toast } from "sonner";
 
 import { Icons } from "~/components/icons";
 import { Button } from "~/components/ui/button";
+import { cn } from "~/lib/utils";
 
 export const OAuthLogin: React.FC<{
   disabled: boolean;
@@ -59,14 +60,16 @@ export const OAuthLogin: React.FC<{
         onClick={googleSignInHandler}
         variant="outline"
       >
-        <Icons.Google className="mr-2 size-4" /> Sign in with Google
+        <Icons.Google
+          className={cn("mr-2 size-4", oauthLoading === "google" && "hidden")}
+        />
+        Sign in with Google
       </Button>
 
       {status === "authenticated" ?
         <Button
           block
           disabled={disabled}
-          loading={oauthLoading === "google"}
           variant="outline"
           onClick={() => passKeySignIn("passkey", { action: "register" })}
         >

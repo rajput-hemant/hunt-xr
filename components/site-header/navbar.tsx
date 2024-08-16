@@ -2,11 +2,16 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { siteConfig } from "~/config/site";
+import { auth } from "~/lib/auth";
 
 import Button from "../ui/button";
+import If from "../ui/if";
 import { Header } from "./header";
+import { LogOutButton } from "./logout-button";
 
-export function Navbar() {
+export async function Navbar() {
+  const user = await auth();
+
   return (
     <Header>
       <div className="relative flex w-full items-center justify-between rounded-full py-2">
@@ -29,9 +34,16 @@ export function Navbar() {
         </div>
 
         <nav className="hidden w-full items-center justify-end gap-2 md:flex">
-          <Button href="/login" round size="lg">
-            <span>Login</span>
-          </Button>
+          <If
+            condition={user}
+            fallback={
+              <Button href="/login" round size="lg">
+                <span>Login</span>
+              </Button>
+            }
+          >
+            <LogOutButton />
+          </If>
         </nav>
       </div>
     </Header>

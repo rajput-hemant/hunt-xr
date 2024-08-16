@@ -28,7 +28,7 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
     Passkey,
     Resend({
       apiKey: env.AUTH_RESEND_KEY,
-      from: "no-reply@resend.dev",
+      from: env.RESEND_SMTP_FROM,
     }),
   ],
 
