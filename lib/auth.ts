@@ -3,6 +3,7 @@ import { redirect } from "next/navigation";
 import { DrizzleAdapter } from "@auth/drizzle-adapter";
 import NextAuth from "next-auth";
 import Google from "next-auth/providers/google";
+import Passkey from "next-auth/providers/passkey";
 import Resend from "next-auth/providers/resend";
 
 import type { DefaultSession, Session } from "next-auth";
@@ -24,11 +25,14 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
   adapter: DrizzleAdapter(db),
   providers: [
     Google,
+    Passkey,
     Resend({
       apiKey: env.AUTH_RESEND_KEY,
-      from: "no-reply@resend.dev",
+      from: env.RESEND_SMTP_FROM,
     }),
   ],
+
+  experimental: { enableWebAuthn: true },
 
   pages: {
     signIn: "/login",

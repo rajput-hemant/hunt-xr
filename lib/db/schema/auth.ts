@@ -93,3 +93,26 @@ export const VerificationTokensRelations = relations(
     }),
   }),
 );
+
+export const Authenticator = pgTable(
+  "authenticator",
+  {
+    credentialID: text("credentialID").notNull(),
+    userId: uuid("userId")
+      .notNull()
+      .references(() => User.id, { onDelete: "cascade" }),
+    providerAccountId: text("providerAccountId").notNull(),
+    credentialPublicKey: text("credentialPublicKey").notNull(),
+    counter: integer("counter").notNull(),
+    credentialDeviceType: text("credentialDeviceType").notNull(),
+    credentialBackedUp: text("credentialBackedUp").notNull(),
+    transports: text("transports"),
+  },
+  (a) => ({
+    compoundKey: primaryKey({ columns: [a.userId, a.credentialID] }),
+  }),
+);
+
+export const AuthenticatorRelations = relations(Authenticator, ({ one }) => ({
+  user: one(User, { fields: [Authenticator.userId], references: [User.id] }),
+}));

@@ -1,19 +1,28 @@
+import Image from "next/image";
 import Link from "next/link";
 
-import { Bitcoin } from "lucide-react";
+import { siteConfig } from "~/config/site";
+import { auth } from "~/lib/auth";
 
-import { cn } from "~/lib/utils";
-
-import { buttonVariants } from "../ui/button-variants";
+import Button from "../ui/button";
+import If from "../ui/if";
 import { Header } from "./header";
+import { LogOutButton } from "./logout-button";
 
-export function Navbar() {
+export async function Navbar() {
+  const user = await auth();
+
   return (
     <Header>
       <div className="relative flex w-full items-center justify-between rounded-full py-2">
         <div className="flex w-full items-center gap-2">
-          <div className="flex aspect-square size-14 items-center justify-center rounded-full border border-foreground">
-            <Bitcoin className="size-8" />
+          <div className="flex aspect-square size-14 items-center justify-center overflow-hidden rounded-full border border-foreground">
+            <Image
+              src="/logo-sm.png"
+              width={100}
+              height={100}
+              alt={`${siteConfig.name} logo`}
+            />
           </div>
 
           <Link
@@ -25,12 +34,16 @@ export function Navbar() {
         </div>
 
         <nav className="hidden w-full items-center justify-end gap-2 md:flex">
-          <Link
-            href="/login"
-            className={cn(buttonVariants({ size: "lg" }), "rounded-full")}
+          <If
+            condition={user}
+            fallback={
+              <Button href="/login" round size="lg">
+                <span>Login</span>
+              </Button>
+            }
           >
-            <span>Login</span>
-          </Link>
+            <LogOutButton />
+          </If>
         </nav>
       </div>
     </Header>

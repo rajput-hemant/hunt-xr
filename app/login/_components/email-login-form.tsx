@@ -84,7 +84,7 @@ export const EmailLoginForm: React.FC<{
           )}
         />
 
-        <Button disabled={disabled} loading={isLoading} className="w-full">
+        <Button block disabled={disabled} loading={isLoading}>
           Send Verification Link
         </Button>
       </form>

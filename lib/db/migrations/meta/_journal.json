@@ -8,6 +8,13 @@
       "when": 1723469256206,
       "tag": "0000_auth",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1723612591337,
+      "tag": "0001_webauthn",
+      "breakpoints": true
     }
   ]
 }
