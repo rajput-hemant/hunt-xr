@@ -43,3 +43,10 @@ export const OTPSchema = z.object({
 });
 
 export type OTP = z.infer<typeof OTPSchema>;
+
+export const VerifyOTPSchema = z.object({
+  phoneNumber: PhoneNumberSchema.shape.phoneNumber,
+  otp: OTPSchema.shape.otp,
+});
+
+export type VerifyOTP = z.infer<typeof VerifyOTPSchema>;

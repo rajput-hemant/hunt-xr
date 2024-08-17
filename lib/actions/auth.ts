@@ -1,9 +1,8 @@
 "use server";
 
 import { and, eq, lt } from "drizzle-orm";
-import twilio from "twilio";
 
-import type { PhoneNumber } from "../validations/auth";
+import type { PhoneNumber, VerifyOTP } from "../validations/auth";
 
 import { db } from "../db";
 import { VerificationTokens } from "../db/schema";
@@ -28,6 +27,8 @@ export async function sendVerificationCode({ phoneNumber }: PhoneNumber) {
     };
   }
 
+  const twilio = (await import("twilio")).default;
+
   const client = twilio(env.TWILIO_ACCOUNT_SID, env.TWILIO_AUTH_TOKEN);
 
   try {
@@ -47,9 +48,7 @@ export async function sendVerificationCode({ phoneNumber }: PhoneNumber) {
   }
 }
 
-type OTP = PhoneNumber & { otp: string };
-
-export async function verifyOtp({ phoneNumber, otp }: OTP) {
+export async function verifyOtp({ phoneNumber, otp }: VerifyOTP) {
   const dbVerificationToken = await db.query.VerificationTokens.findFirst({
     where: ({ identifier, token, expires }, { eq, gt, and }) =>
       and(eq(identifier, phoneNumber), eq(token, otp), gt(expires, new Date())),

@@ -93,7 +93,6 @@ export const PhoneLoginForm: React.FC<{
 
     toast.promise(
       verifyOtp({
-        countryCode: phoneform.watch().countryCode as CountryCode,
         phoneNumber: phoneform.watch().phoneNumber,
         otp: data.otp,
       }).then(({ error }) => {

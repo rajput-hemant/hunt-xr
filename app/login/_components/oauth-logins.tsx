@@ -3,9 +3,7 @@
 import React from "react";
 import { useSearchParams } from "next/navigation";
 
-import { Fingerprint } from "lucide-react";
-import { signIn, useSession } from "next-auth/react";
-import { signIn as passKeySignIn } from "next-auth/webauthn";
+import { signIn } from "next-auth/react";
 import { toast } from "sonner";
 
 import { Icons } from "~/components/icons";
@@ -18,7 +16,7 @@ export const OAuthLogin: React.FC<{
 }> = ({ disabled, setDisabled }) => {
   const [oauthLoading, setOauthLoading] = React.useState<"google">();
 
-  const { status } = useSession();
+  // const { status } = useSession();
   const searchParams = useSearchParams();
   const from = searchParams.get("from");
 
@@ -66,7 +64,7 @@ export const OAuthLogin: React.FC<{
         Sign in with Google
       </Button>
 
-      {status === "authenticated" ?
+      {/* {status === "authenticated" ?
         <Button
           block
           disabled={disabled}
@@ -87,7 +85,7 @@ export const OAuthLogin: React.FC<{
       : <Button block loading variant="outline">
           Checking Passkey status
         </Button>
-      }
+      } */}
     </>
   );
 };

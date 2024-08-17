@@ -2,6 +2,7 @@ import { redirect } from "next/navigation";
 
 import { DrizzleAdapter } from "@auth/drizzle-adapter";
 import NextAuth from "next-auth";
+import Credentials from "next-auth/providers/credentials";
 import Google from "next-auth/providers/google";
 import Passkey from "next-auth/providers/passkey";
 import Resend from "next-auth/providers/resend";
@@ -11,11 +12,20 @@ import type { DefaultSession, Session } from "next-auth";
 import { db } from "~/lib/db";
 import { env } from "~/lib/env";
 
+import { verifyOtp } from "./actions/auth";
+import { User } from "./db/schema";
+import { VerifyOTPSchema } from "./validations/auth";
+
 declare module "next-auth" {
   interface Session {
     user: DefaultSession["user"] & {
       id: string;
+      phoneNumber?: string;
     };
+  }
+
+  interface User {
+    phoneNumber?: string;
   }
 }
 
@@ -23,6 +33,13 @@ export type AuthSession = Session | null;
 
 export const { auth, handlers, signIn, signOut } = NextAuth({
   adapter: DrizzleAdapter(db),
+  experimental: { enableWebAuthn: true },
+
+  pages: {
+    signIn: "/login",
+    error: "/login",
+  },
+
   providers: [
     Google,
     Passkey,
@@ -30,14 +47,37 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
       apiKey: env.AUTH_RESEND_KEY,
       from: env.RESEND_SMTP_FROM,
     }),
+    Credentials({
+      authorize: async (credentials) => {
+        const validatedFields = VerifyOTPSchema.safeParse(credentials);
+
+        if (validatedFields.success) {
+          const { phoneNumber, otp } = validatedFields.data;
+
+          const { data } = await verifyOtp({ phoneNumber, otp });
+
+          if (data) {
+            const [user] = await db
+              .insert(User)
+              .values({ phoneNumber })
+              .onConflictDoNothing()
+              .returning();
+
+            if (user) {
+              return {
+                id: user.id,
+                phoneNumber: user.phoneNumber!,
+              };
+            }
+          } else {
+            return null;
+          }
+        }
+
+        return null;
+      },
+    }),
   ],
-
-  experimental: { enableWebAuthn: true },
-
-  pages: {
-    signIn: "/login",
-    error: "/login",
-  },
 
   callbacks: {
     signIn: async ({ user }) => {

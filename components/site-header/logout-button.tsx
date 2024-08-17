@@ -10,7 +10,6 @@ export function LogOutButton() {
     toast.promise(
       signOut({
         callbackUrl: "/login",
-        redirect: false,
       }),
       {
         loading: "Logging out...",
