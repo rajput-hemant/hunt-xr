@@ -69,8 +69,15 @@ export const PhoneLoginForm: React.FC<{
     setIsLoading(true);
     setDisabled(true);
 
+    const phoneNumber = data.phoneNumber
+      .replace(/\s/g, "")
+      .replace("+1", `+${getCountryCode}`);
+
     toast.promise(
-      sendVerificationCode(data).then(({ error, data }) => {
+      sendVerificationCode({
+        ...data,
+        phoneNumber,
+      }).then(({ error, data }) => {
         if (error) throw new Error(error);
         return data;
       }),

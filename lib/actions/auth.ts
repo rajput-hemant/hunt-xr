@@ -1,16 +1,23 @@
 "use server";
 
 import { and, eq, lt } from "drizzle-orm";
+import { getCountryCallingCode } from "libphonenumber-js";
 
 import type { PhoneNumber, VerifyOTP } from "../validations/auth";
+import type { CountryCode } from "libphonenumber-js";
 
 import { db } from "../db";
 import { VerificationTokens } from "../db/schema";
 import { env } from "../env";
 import { getErrorMessage } from "../utils";
 
-export async function sendVerificationCode({ phoneNumber }: PhoneNumber) {
+export async function sendVerificationCode(data: PhoneNumber) {
   const otp = Math.floor(100000 + Math.random() * 900000);
+
+  const phoneNumber = data.phoneNumber.replace(
+    "+1",
+    `+${getCountryCallingCode(data.countryCode as CountryCode)}`,
+  );
 
   const [dbVerificationToken] = await db
     .insert(VerificationTokens)
