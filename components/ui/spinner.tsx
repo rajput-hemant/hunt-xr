@@ -26,5 +26,3 @@ export const Spinner: React.FC<{ className?: string }> = ({ className }) => {
     </div>
   );
 };
-
-export default Spinner;

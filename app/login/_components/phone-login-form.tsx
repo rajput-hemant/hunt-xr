@@ -6,13 +6,14 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { REGEXP_ONLY_DIGITS } from "input-otp";
 import { getCountries, getCountryCallingCode } from "libphonenumber-js";
 import { useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 import { toast } from "sonner";
 
 import type { CountryCode } from "libphonenumber-js";
 
 import type { OTP, PhoneNumber } from "~/lib/validations/auth";
 
-import Button from "~/components/ui/button";
+import { Button } from "~/components/ui/button";
 import {
   Form,
   FormControl,
@@ -21,7 +22,7 @@ import {
   FormItem,
   FormMessage,
 } from "~/components/ui/form";
-import If from "~/components/ui/if";
+import { If } from "~/components/ui/if";
 import { Input } from "~/components/ui/input";
 import {
   InputOTP,
@@ -37,6 +38,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "~/components/ui/select";
+import { Trans } from "~/components/ui/trans";
 import { sendVerificationCode, verifyOtp } from "~/lib/actions/auth";
 import { cn } from "~/lib/utils";
 import { OTPSchema, PhoneNumberSchema } from "~/lib/validations/auth";
@@ -45,6 +47,8 @@ export const PhoneLoginForm: React.FC<{
   disabled: boolean;
   setDisabled: React.Dispatch<React.SetStateAction<boolean>>;
 }> = ({ disabled, setDisabled }) => {
+  const { t } = useTranslation();
+
   const [isLoading, setIsLoading] = React.useState(false);
   const [isOTPSent, setIsOTPSent] = React.useState(false);
 
@@ -82,9 +86,9 @@ export const PhoneLoginForm: React.FC<{
         return data;
       }),
       {
-        loading: "Sending OTP...",
-        success: "OTP sent successfully",
-        error: (e: Error) => e.message || "Failed to send OTP",
+        loading: t("auth:sendingOTP"),
+        success: t("auth:otpSent"),
+        error: (e: Error) => e.message || t("auth:otpSendError"),
         finally: () => {
           setIsLoading(false);
           setDisabled(false);
@@ -106,9 +110,9 @@ export const PhoneLoginForm: React.FC<{
         if (error) throw new Error(error);
       }),
       {
-        loading: "Verifying OTP...",
-        success: "OTP verified successfully",
-        error: (e: Error) => e.message || "Failed to verify OTP",
+        loading: t("auth:verifyingOTP"),
+        success: t("auth:otpVerified"),
+        error: (e: Error) => e.message || t("auth:otpVerifyError"),
         finally: () => {
           setIsLoading(false);
           setDisabled(false);
@@ -196,7 +200,7 @@ export const PhoneLoginForm: React.FC<{
             </div>
 
             <Button block disabled={disabled} loading={isLoading}>
-              Send OTP
+              <Trans i18nKey="auth:sendOTP" />
             </Button>
           </form>
         </Form>
@@ -238,7 +242,7 @@ export const PhoneLoginForm: React.FC<{
                   </InputOTP>
                 </FormControl>
                 <FormDescription>
-                  Enter the 6-digit OTP sent to your phone number
+                  <Trans i18nKey="auth:otpDescription" />
                 </FormDescription>
                 <FormMessage />
               </FormItem>
@@ -246,7 +250,7 @@ export const PhoneLoginForm: React.FC<{
           />
 
           <Button block disabled={disabled} loading={isLoading}>
-            Verify OTP
+            <Trans i18nKey="auth:verifyOTP" />
           </Button>
         </form>
       </Form>

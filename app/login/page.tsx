@@ -6,8 +6,9 @@ import { ChevronLeft } from "lucide-react";
 
 import type { Metadata } from "next";
 
-import Button from "~/components/ui/button";
+import { Button } from "~/components/ui/button";
 import { Skeleton } from "~/components/ui/skeleton";
+import { Trans } from "~/components/ui/trans";
 import { siteConfig } from "~/config/site";
 
 import { LoginForm } from "./_components/login-form";
@@ -28,7 +29,7 @@ export default function LoginPage() {
       >
         <span className="inline-flex items-center">
           <ChevronLeft className="mr-2 size-4" />
-          Back
+          <Trans i18nKey={"common:goBack"} />
         </span>
       </Button>
 
@@ -47,11 +48,14 @@ export default function LoginPage() {
           </div>
 
           <div className="text-2xl font-semibold tracking-tight">
-            <span>Welcome to</span>{" "}
-            <span className="font-bold">{siteConfig.name}</span>
+            <Trans
+              i18nKey={"auth:authHeading"}
+              values={{ appName: siteConfig.name }}
+              components={{ span: <span className="font-bold" /> }}
+            />
           </div>
           <p className="text-sm text-muted-foreground">
-            Enter your details to sign in to your account
+            <Trans i18nKey={"auth:authSubheading"} />
           </p>
         </div>
 
@@ -60,22 +64,24 @@ export default function LoginPage() {
         </React.Suspense>
 
         <p className="px-8 text-center text-sm text-muted-foreground">
-          By clicking continue, you agree to our
-          <br />
-          <Link
-            href="/terms"
-            className="hover:text-brand underline underline-offset-4"
-          >
-            Terms of Service
-          </Link>{" "}
-          and{" "}
-          <Link
-            href="/privacy"
-            className="hover:text-brand underline underline-offset-4"
-          >
-            Privacy Policy
-          </Link>
-          .
+          <Trans
+            i18nKey={"auth:authAgreement"}
+            components={{
+              br: <br />,
+              terms: (
+                <Link
+                  href="/terms"
+                  className="hover:text-brand underline underline-offset-4"
+                />
+              ),
+              privacy: (
+                <Link
+                  href="/privacy"
+                  className="hover:text-brand underline underline-offset-4"
+                />
+              ),
+            }}
+          />
         </p>
       </div>
     </div>

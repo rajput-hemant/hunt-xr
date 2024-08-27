@@ -5,11 +5,12 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Mail } from "lucide-react";
 import { signIn } from "next-auth/react";
 import { useForm } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 import { toast } from "sonner";
 
 import type { Email } from "~/lib/validations/auth";
 
-import Button from "~/components/ui/button";
+import { Button } from "~/components/ui/button";
 import {
   Form,
   FormControl,
@@ -18,12 +19,15 @@ import {
   FormMessage,
 } from "~/components/ui/form";
 import { Input } from "~/components/ui/input";
+import { Trans } from "~/components/ui/trans";
 import { EmailSchema } from "~/lib/validations/auth";
 
 export const EmailLoginForm: React.FC<{
   disabled: boolean;
   setDisabled: React.Dispatch<React.SetStateAction<boolean>>;
 }> = ({ disabled, setDisabled }) => {
+  const { t } = useTranslation();
+
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
 
   const searchParams = useSearchParams();
@@ -48,13 +52,13 @@ export const EmailLoginForm: React.FC<{
     setDisabled(false);
 
     if (!signInResult?.ok) {
-      return toast.error("Something went wrong.", {
-        description: "Your sign in request failed. Please try again.",
+      return toast.error(t("auth:emailSigninErrorTitle"), {
+        description: t("auth:emailSigninErrorDescription"),
       });
     }
 
-    return toast.success("Check your email", {
-      description: "We sent you a login link. Be sure to check your spam too.",
+    return toast.success(t("auth:emailSigninSuccessTitle"), {
+      description: t("auth:emailSigninSuccessDescription"),
     });
   }
 
@@ -85,7 +89,7 @@ export const EmailLoginForm: React.FC<{
         />
 
         <Button block disabled={disabled} loading={isLoading}>
-          Send Verification Link
+          <Trans i18nKey="auth:sendLoginLink" />
         </Button>
       </form>
     </Form>
