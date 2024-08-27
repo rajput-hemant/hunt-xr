@@ -1,0 +1,20 @@
+{
+  "info": "Details",
+  "wallet": "Connect Wallet",
+  "complete": "Complete",
+
+  "setupAccount": {
+    "title": "Setup Account",
+    "description": "Welcome! First, let's setup your account."
+  },
+
+  "connectWallet": {
+    "title": "Connect Wallet",
+    "description": "Connect your wallet to get started."
+  },
+
+  "settingAccount": "We're setting up your account. Please wait...",
+  "successStepHeading": "You're all set! You can now start using the app.",
+
+  "continue": "Continue to your Dashboard"
+}

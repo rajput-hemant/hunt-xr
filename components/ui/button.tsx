@@ -105,8 +105,8 @@ const Button: React.FCC<ButtonProps> = forwardRef<
 
 function Animation() {
   return (
-    <span className={"mx-2"}>
-      <Spinner className={"mx-auto !h-4 !w-4 fill-white dark:fill-white"} />
+    <span className="mx-2">
+      <Spinner className="mx-auto !h-4 !w-4 fill-white dark:fill-white" />
     </span>
   );
 }

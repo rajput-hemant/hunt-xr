@@ -16,6 +16,7 @@ export const I18N_COOKIE_NAME = "lang";
 export const defaultI18nNamespaces = [
   "common",
   "auth",
+  "onboarding",
   // ...
 ];
 

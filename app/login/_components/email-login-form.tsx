@@ -45,7 +45,7 @@ export const EmailLoginForm: React.FC<{
     const signInResult = await signIn("resend", {
       email: data.email.toLowerCase(),
       redirect: false,
-      callbackUrl: from ?? "/",
+      callbackUrl: from ?? "/onboarding",
     });
 
     setIsLoading(false);

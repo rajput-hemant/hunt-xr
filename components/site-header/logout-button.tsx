@@ -25,7 +25,7 @@ export function LogOutButton() {
 
   return (
     <Button round size="lg" onClick={logout}>
-      <Trans i18nKey={"auth:signOut"} />
+      <Trans i18nKey="auth:signOut" />
     </Button>
   );
 }
