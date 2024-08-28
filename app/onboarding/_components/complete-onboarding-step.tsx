@@ -33,7 +33,7 @@ export const CompleteOnboardingStep: React.FC<{ data: Partial<AuthUser> }> = ({
   }, [submitted]); // eslint-disable-line react-hooks/exhaustive-deps
 
   if (submitted) {
-    return <SuccessState returnUrl="/" />;
+    return <SuccessState returnUrl="/onboarding/create-token" />;
   }
 
   return (

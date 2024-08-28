@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/no-unsafe-call */
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 
 import { showConnect } from "@stacks/connect";
 
@@ -20,9 +20,9 @@ export const ConnectWallet: React.FC<{
 
   useEffect(() => {
     updateWalletStatus();
-  }, []);
+  });
 
-  const updateWalletStatus = () => {
+  const updateWalletStatus = useCallback(() => {
     const isSignedIn = userSession.isUserSignedIn();
     setIsLinked(isSignedIn);
     onWalletConnect(isSignedIn);
@@ -30,7 +30,7 @@ export const ConnectWallet: React.FC<{
       const userData = userSession.loadUserData();
       setWalletAddress(userData.profile.stxAddress.testnet);
     }
-  };
+  }, [onWalletConnect]);
 
   const handleConnect = () => {
     const myAppName = "Hunt XR";

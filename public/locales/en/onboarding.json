@@ -17,7 +17,7 @@
   "successStepHeading": "You're all set! You can now start using the app.",
   "errorSettingAccount": "There was an error setting up your account. Please try again.",
 
-  "continue": "Continue to your Dashboard",
+  "continue": "Continue to create token",
 
   "nameField": {
     "label": "Enter your name",
@@ -32,5 +32,10 @@
   "phoneNumberField": {
     "label": "Enter your phone number",
     "placeholder": "+1 123 456 7890"
+  },
+
+  "createToken": {
+    "heading": "Create token",
+    "subHeading": "Create a new user token to get started."
   }
 }
