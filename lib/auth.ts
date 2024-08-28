@@ -20,16 +20,17 @@ declare module "next-auth" {
   interface Session {
     user: DefaultSession["user"] & {
       id: string;
-      phoneNumber?: string;
+      phoneNumber?: string | undefined;
     };
   }
 
   interface User {
-    phoneNumber?: string;
+    phoneNumber?: string | undefined;
   }
 }
 
 export type AuthSession = Session | null;
+export type AuthUser = Session["user"] & { id: string };
 
 export const { auth, handlers, signIn, signOut } = NextAuth({
   adapter: DrizzleAdapter(db),

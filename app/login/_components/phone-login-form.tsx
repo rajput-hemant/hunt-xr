@@ -5,6 +5,7 @@ import React from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { REGEXP_ONLY_DIGITS } from "input-otp";
 import { getCountries, getCountryCallingCode } from "libphonenumber-js";
+import { signIn } from "next-auth/react";
 import { useForm } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { toast } from "sonner";
@@ -39,7 +40,7 @@ import {
   SelectValue,
 } from "~/components/ui/select";
 import { Trans } from "~/components/ui/trans";
-import { sendVerificationCode, verifyOtp } from "~/lib/actions/auth";
+import { sendVerificationCode } from "~/lib/actions/auth";
 import { cn } from "~/lib/utils";
 import { OTPSchema, PhoneNumberSchema } from "~/lib/validations/auth";
 
@@ -103,11 +104,11 @@ export const PhoneLoginForm: React.FC<{
     setDisabled(true);
 
     toast.promise(
-      verifyOtp({
+      signIn("credentials", {
         phoneNumber: phoneform.watch().phoneNumber,
         otp: data.otp,
-      }).then(({ error }) => {
-        if (error) throw new Error(error);
+        callbackUrl: "/onboarding",
+        redirect: false,
       }),
       {
         loading: t("auth:verifyingOTP"),

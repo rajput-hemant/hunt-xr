@@ -1,6 +1,7 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { redirect } from "next/navigation";
 
 import { ChevronLeft } from "lucide-react";
 
@@ -10,6 +11,7 @@ import { Button } from "~/components/ui/button";
 import { Skeleton } from "~/components/ui/skeleton";
 import { Trans } from "~/components/ui/trans";
 import { siteConfig } from "~/config/site";
+import { auth } from "~/lib/auth";
 
 import { LoginForm } from "./_components/login-form";
 
@@ -18,7 +20,13 @@ export const metadata: Metadata = {
   description: "Login to your account",
 };
 
-export default function LoginPage() {
+export default async function LoginPage() {
+  const session = await auth();
+
+  if (session) {
+    redirect("/");
+  }
+
   return (
     <div className="container flex h-dvh w-full flex-col items-center justify-center">
       <Button
@@ -29,7 +37,7 @@ export default function LoginPage() {
       >
         <span className="inline-flex items-center">
           <ChevronLeft className="mr-2 size-4" />
-          <Trans i18nKey={"common:goBack"} />
+          <Trans i18nKey="common:goBack" />
         </span>
       </Button>
 
@@ -49,13 +57,13 @@ export default function LoginPage() {
 
           <div className="text-2xl font-semibold tracking-tight">
             <Trans
-              i18nKey={"auth:authHeading"}
+              i18nKey="auth:authHeading"
               values={{ appName: siteConfig.name }}
               components={{ span: <span className="font-bold" /> }}
             />
           </div>
           <p className="text-sm text-muted-foreground">
-            <Trans i18nKey={"auth:authSubheading"} />
+            <Trans i18nKey="auth:authSubheading" />
           </p>
         </div>
 
@@ -65,7 +73,7 @@ export default function LoginPage() {
 
         <p className="px-8 text-center text-sm text-muted-foreground">
           <Trans
-            i18nKey={"auth:authAgreement"}
+            i18nKey="auth:authAgreement"
             components={{
               br: <br />,
               terms: (

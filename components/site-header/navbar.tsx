@@ -38,7 +38,7 @@ export const Navbar: React.FC<{ session: AuthSession }> = ({ session }) => {
             condition={session}
             fallback={
               <Button href="/login" round size="lg">
-                <Trans i18nKey={"auth:signIn"} />
+                <Trans i18nKey="auth:signIn" />
               </Button>
             }
           >

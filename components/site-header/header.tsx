@@ -6,7 +6,7 @@ import { usePathname } from "next/navigation";
 import { useEventListener } from "~/hooks/use-event-listner";
 import { cn } from "~/lib/utils";
 
-const excludePaths = ["/login"];
+const excludePaths = ["/login", "/onboarding"];
 
 export const Header: React.FCC = ({ children }) => {
   const [isScrolled, setIsScrolled] = React.useState(false);

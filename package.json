@@ -39,10 +39,12 @@
     "@react-three/xr": "^6.2.1",
     "@simplewebauthn/browser": "=9.0.1",
     "@simplewebauthn/server": "=9.0.1",
+    "@stacks/connect": "^7.7.1",
     "@t3-oss/env-nextjs": "^0.11.0",
     "@trpc/client": "^11.0.0-rc.485",
     "@trpc/react-query": "^11.0.0-rc.485",
     "@trpc/server": "^11.0.0-rc.485",
+    "@uploadthing/react": "^6.7.2",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "drizzle-orm": "^0.33.0",
@@ -71,6 +73,7 @@
     "tailwindcss-animate": "^1.0.7",
     "three": "^0.167.1",
     "twilio": "^5.2.2",
+    "uploadthing": "^6.13.2",
     "zod": "^3.23.8"
   },
   "devDependencies": {
@@ -84,6 +87,7 @@
     "@types/react-dom": "18.3.0",
     "@typescript-eslint/eslint-plugin": "^8.2.0",
     "@typescript-eslint/parser": "^8.2.0",
+    "bun-types": "^1.1.26",
     "drizzle-kit": "^0.24.1",
     "eslint": "8.57.0",
     "eslint-config-next": "14.2.5",

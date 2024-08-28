@@ -43,7 +43,7 @@ export const OAuthLogin: React.FC<{
       signInToaster(
         signIn("google", {
           redirect: false,
-          callbackUrl: from ?? "/",
+          callbackUrl: from ?? "/onboarding",
         }),
       );
     } catch (error) {
@@ -74,7 +74,7 @@ export const OAuthLogin: React.FC<{
           variant="outline"
           onClick={() => passKeySignIn("passkey", { action: "register" })}
         >
-          <Fingerprint className="mr-2 size-5" />{" "}
+          <Fingerprint className="mr-2 size-5" />" "
           <Trans i18nKey="auth:registerPasskey" />
         </Button>
       : status === "unauthenticated" ?
@@ -84,7 +84,7 @@ export const OAuthLogin: React.FC<{
           variant="outline"
           onClick={() => passKeySignIn("passkey")}
         >
-          <Fingerprint className="mr-2 size-4" />{" "}
+          <Fingerprint className="mr-2 size-4" />" "
           <Trans i18nKey="auth:passkey" />
         </Button>
       : <Button block loading variant="outline">

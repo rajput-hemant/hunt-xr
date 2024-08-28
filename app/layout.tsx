@@ -4,10 +4,13 @@ import React from "react";
 import dynamic from "next/dynamic";
 import { cookies } from "next/headers";
 
+import { NextSSRPlugin } from "@uploadthing/react/next-ssr-plugin";
 import { SessionProvider } from "next-auth/react";
+import { extractRouterConfig } from "uploadthing/server";
 
 import type { Metadata } from "next";
 
+import { ourFileRouter } from "~/app/api/uploadthing/core";
 import { Navbar } from "~/components/site-header/navbar";
 import { TailwindIndicator } from "~/components/tailwind-indicator";
 import { ThemeProvider } from "~/components/theme-provider";
@@ -85,6 +88,16 @@ export default async function RootLayout({
               <SessionProvider>
                 <TRPCReactProvider>
                   <Navbar session={session} />
+                  <NextSSRPlugin
+                    /**
+                     * The `extractRouterConfig` will extract **only** the route configs
+                     * from the router to prevent additional information from being
+                     * leaked to the client. The data passed to the client is the same
+                     * as if you were to fetch `/api/uploadthing` directly.
+                     */
+                    routerConfig={extractRouterConfig(ourFileRouter)}
+                  />
+
                   {children}
 
                   <Scene
