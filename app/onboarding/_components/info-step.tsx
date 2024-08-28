@@ -4,6 +4,7 @@ import React from "react";
 import Image from "next/image";
 
 import { Edit } from "lucide-react";
+import { useTranslation } from "react-i18next";
 import { toast } from "sonner";
 
 import type { FormEvent } from "react";
@@ -22,6 +23,8 @@ export type InfoStepData = Partial<AuthUser>;
 export const InfoStep: React.FCC<{
   onSubmit: (data: InfoStepData) => void;
 }> = ({ onSubmit }) => {
+  const { t } = useTranslation();
+
   const [image, setImage] = React.useState<string | null>(null);
 
   const handleFormSubmit = React.useCallback(
@@ -37,9 +40,10 @@ export const InfoStep: React.FCC<{
         name,
         email,
         phoneNumber,
+        image,
       });
     },
-    [onSubmit],
+    [onSubmit, image],
   );
 
   function editImage() {
@@ -130,38 +134,38 @@ export const InfoStep: React.FCC<{
 
         <TextField>
           <TextField.Label>
-            Enter your name
+            <Trans i18nKey="onboarding:nameField.label" />
             <TextField.Input
               required
               name="name"
               autoComplete="name"
-              placeholder="John Doe"
+              placeholder={t("onboarding:nameField.placeholder")}
             />
           </TextField.Label>
         </TextField>
 
         <TextField>
           <TextField.Label>
-            Enter your email
+            <Trans i18nKey="onboarding:emailField.label" />
             <TextField.Input
               required
               type="email"
               name="email"
               autoComplete="email"
-              placeholder="john@acme.corp"
+              placeholder={t("onboarding:emailField.placeholder")}
             />
           </TextField.Label>
         </TextField>
 
         <TextField>
           <TextField.Label>
-            Enter your Phone Number
+            <Trans i18nKey="onboarding:phoneNumberField.label" />
             <TextField.Input
               required
               type="tel"
               name="phoneNumber"
               autoComplete="tel"
-              placeholder="+1 123 456 7890"
+              placeholder={t("onboarding:phoneNumberField.placeholder")}
             />
           </TextField.Label>
         </TextField>

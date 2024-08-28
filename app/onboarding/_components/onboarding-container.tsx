@@ -71,11 +71,7 @@ export const OnboardingContainer: React.FC<{ session: Session }> = ({
       </If>
 
       <If condition={isStep(2)}>
-        <CompleteOnboardingStep
-          onSubmit={() => {
-            // ...
-          }}
-        />
+        <CompleteOnboardingStep data={formData} />
       </If>
     </React.Fragment>
   );

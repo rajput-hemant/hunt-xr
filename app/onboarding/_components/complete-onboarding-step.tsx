@@ -1,18 +1,38 @@
+"use client";
+
 import React from "react";
 
 import { CheckIcon, ChevronRightIcon } from "lucide-react";
+import { useTranslation } from "react-i18next";
+import { toast } from "sonner";
+
+import type { AuthUser } from "~/lib/auth";
 
 import { Button } from "~/components/ui/button";
 import { Heading } from "~/components/ui/heading";
 import { Spinner } from "~/components/ui/spinner";
 import { Trans } from "~/components/ui/trans";
+import { updateUser } from "~/lib/actions/user";
 
-export const CompleteOnboardingStep: React.FC<{ onSubmit: EmptyCallback }> = ({
-  onSubmit: _,
+export const CompleteOnboardingStep: React.FC<{ data: Partial<AuthUser> }> = ({
+  data,
 }) => {
-  const [isSuccess, _setIsSuccess] = React.useState(false);
+  const { t } = useTranslation();
 
-  if (isSuccess) {
+  const [submitted, setSubmitted] = React.useState(false);
+
+  React.useEffect(() => {
+    if (!submitted) {
+      toast.promise(updateUser(data), {
+        loading: t("onboarding:settingAccount"),
+        success: t("onboarding:successStepHeading"),
+        error: t("onboarding:errorSettingAccount "),
+        finally: () => setSubmitted(true),
+      });
+    }
+  }, [submitted]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  if (submitted) {
     return <SuccessState returnUrl="/" />;
   }
 

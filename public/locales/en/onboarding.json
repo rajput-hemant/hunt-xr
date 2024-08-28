@@ -15,6 +15,22 @@
 
   "settingAccount": "We're setting up your account. Please wait...",
   "successStepHeading": "You're all set! You can now start using the app.",
+  "errorSettingAccount": "There was an error setting up your account. Please try again.",
 
-  "continue": "Continue to your Dashboard"
+  "continue": "Continue to your Dashboard",
+
+  "nameField": {
+    "label": "Enter your name",
+    "placeholder": "John Doe"
+  },
+
+  "emailField": {
+    "label": "Enter your email",
+    "placeholder": "john@acme.corp"
+  },
+
+  "phoneNumberField": {
+    "label": "Enter your phone number",
+    "placeholder": "+1 123 456 7890"
+  }
 }
