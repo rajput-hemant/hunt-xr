@@ -4,9 +4,11 @@ import React from "react";
 import { useSearchParams } from "next/navigation";
 
 import { Mail, Phone } from "lucide-react";
+import { useTranslation } from "react-i18next";
 import { toast } from "sonner";
 
-import Button from "~/components/ui/button";
+import { Button } from "~/components/ui/button";
+import { Trans } from "~/components/ui/trans";
 
 import { EmailLoginForm } from "./email-login-form";
 import { OAuthLogin } from "./oauth-logins";
@@ -20,17 +22,9 @@ enum AuthError {
   Default = "Default",
 }
 
-const errorMap = {
-  [AuthError.Configuration]:
-    "There was a problem when trying to authenticate. Please contact us if this error persists.",
-  [AuthError.AccessDenied]: "Access denied. Please try again.",
-  [AuthError.Verification]: "Please verify your email address.",
-  [AuthError.AlreadySignedIn]:
-    "You are already signed in. Log out of all devices to sign in again.",
-  [AuthError.Default]: "An error occurred while trying to authenticate.",
-};
-
 export function LoginForm() {
+  const { t } = useTranslation();
+
   const [isEmailMode, setIsEmailMode] = React.useState(true);
   const [disabled, setDisabled] = React.useState(false);
 
@@ -38,12 +32,20 @@ export function LoginForm() {
   const error = searchParams.get("error") as AuthError | null;
 
   React.useEffect(() => {
+    const errorMap = {
+      [AuthError.Configuration]: t("auth:configurationError"),
+      [AuthError.AccessDenied]: t("auth:accessDeniedError"),
+      [AuthError.Verification]: t("auth:verificationError"),
+      [AuthError.AlreadySignedIn]: t("auth:alreadySignedInError"),
+      [AuthError.Default]: t("auth:defaultError"),
+    };
+
     if (error) {
-      toast.error("An error occurred while trying to authenticate.", {
+      toast.error(t("auth:error"), {
         description: errorMap[error],
       });
     }
-  }, [error]);
+  }, [error, t]);
 
   return (
     <div className="grid gap-2">
@@ -58,7 +60,7 @@ export function LoginForm() {
           variant="outline"
           onClick={() => setIsEmailMode(false)}
         >
-          <Phone className="mr-2 size-4" /> Use Phone Instead
+          <Phone className="mr-2 size-4" /> <Trans i18nKey="auth:usePhone" />
         </Button>
       : <Button
           block
@@ -66,7 +68,7 @@ export function LoginForm() {
           variant="outline"
           onClick={() => setIsEmailMode(true)}
         >
-          <Mail className="mr-2 size-4" /> Use Email Instead
+          <Mail className="mr-2 size-4" /> <Trans i18nKey="auth:useEmail" />
         </Button>
       }
 
@@ -74,7 +76,7 @@ export function LoginForm() {
         <span className="absolute inset-x-0 inset-y-1/2 border-t" />
 
         <span className="relative mx-auto flex w-fit bg-background px-2 text-xs uppercase text-muted-foreground transition-colors duration-0">
-          Or continue with
+          <Trans i18nKey="auth:orContinueWith" />
         </span>
       </div>
 

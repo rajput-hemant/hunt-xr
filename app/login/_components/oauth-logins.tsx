@@ -4,10 +4,12 @@ import React from "react";
 import { useSearchParams } from "next/navigation";
 
 import { signIn } from "next-auth/react";
+import { useTranslation } from "react-i18next";
 import { toast } from "sonner";
 
 import { Icons } from "~/components/icons";
 import { Button } from "~/components/ui/button";
+import { Trans } from "~/components/ui/trans";
 import { cn } from "~/lib/utils";
 
 export const OAuthLogin: React.FC<{
@@ -16,15 +18,16 @@ export const OAuthLogin: React.FC<{
 }> = ({ disabled, setDisabled }) => {
   const [oauthLoading, setOauthLoading] = React.useState<"google">();
 
+  const { t } = useTranslation();
+
   // const { status } = useSession();
   const searchParams = useSearchParams();
   const from = searchParams.get("from");
 
   function signInToaster(promise: Promise<unknown>) {
     toast.promise(promise, {
-      loading: "Signing in...",
-      success: "You have been signed in.",
-      error: "Something went wrong.",
+      loading: t("auth:signingIn"),
+      error: t("auth:signInError"),
       finally: () => {
         setOauthLoading(undefined);
         setDisabled(false);
@@ -61,7 +64,7 @@ export const OAuthLogin: React.FC<{
         <Icons.Google
           className={cn("mr-2 size-4", oauthLoading === "google" && "hidden")}
         />
-        Sign in with Google
+        <Trans i18nKey="auth:google" />
       </Button>
 
       {/* {status === "authenticated" ?
@@ -71,7 +74,8 @@ export const OAuthLogin: React.FC<{
           variant="outline"
           onClick={() => passKeySignIn("passkey", { action: "register" })}
         >
-          <Fingerprint className="mr-2 size-5" /> Register new Passkey
+          <Fingerprint className="mr-2 size-5" />{" "}
+          <Trans i18nKey="auth:registerPasskey" />
         </Button>
       : status === "unauthenticated" ?
         <Button
@@ -80,10 +84,11 @@ export const OAuthLogin: React.FC<{
           variant="outline"
           onClick={() => passKeySignIn("passkey")}
         >
-          <Fingerprint className="mr-2 size-4" /> Sign in with Passkey
+          <Fingerprint className="mr-2 size-4" />{" "}
+          <Trans i18nKey="auth:passkey" />
         </Button>
       : <Button block loading variant="outline">
-          Checking Passkey status
+          <Trans i18nKey="auth:passkeyIntermediate" />
         </Button>
       } */}
     </>

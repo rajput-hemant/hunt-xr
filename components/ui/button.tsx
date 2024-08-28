@@ -9,8 +9,8 @@ import type { VariantProps } from "class-variance-authority";
 
 import { cn } from "~/lib/utils";
 
-import If from "./if";
-import Spinner from "./spinner";
+import { If } from "./if";
+import { Spinner } from "./spinner";
 
 type Size = "default" | "sm" | "lg" | "custom";
 const large = `*:py-2.5 *:px-6 h-14 text-lg`;
@@ -131,7 +131,5 @@ function InnerButtonContainerElement({
 
   return <span className={className}>{children}</span>;
 }
-
-export default Button;
 
 export { Button };

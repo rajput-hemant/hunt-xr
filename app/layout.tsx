@@ -2,6 +2,7 @@ import "./globals.css";
 
 import React from "react";
 import dynamic from "next/dynamic";
+import { cookies } from "next/headers";
 
 import { SessionProvider } from "next-auth/react";
 
@@ -13,6 +14,10 @@ import { ThemeProvider } from "~/components/theme-provider";
 import { Toaster } from "~/components/ui/sonner";
 import { TooltipProvider } from "~/components/ui/tooltip";
 import { siteConfig } from "~/config/site";
+import initializeServerI18n from "~/i18n/i18n.server";
+import { I18N_COOKIE_NAME } from "~/i18n/i18n.settings";
+import I18nProvider from "~/i18n/I18nProvider";
+import { auth } from "~/lib/auth";
 import * as fonts from "~/lib/fonts";
 import { TRPCReactProvider } from "~/lib/trpc/react";
 import { cn } from "~/lib/utils";
@@ -54,45 +59,57 @@ const Scene = dynamic(() => import("~/components/canvas/scene"), {
   ssr: false,
 });
 
-export default function RootLayout({ children }: React.PropsWithChildren) {
+export default async function RootLayout({
+  children,
+}: React.PropsWithChildren) {
+  const [session, { language }] = await Promise.all([
+    auth(),
+    initializeServerI18n(getLanguageCookie()),
+  ]);
+
   return (
     <html
-      lang="en"
+      lang={language}
       suppressHydrationWarning
       className={cn(Object.values(fonts).map((font) => font.variable))}
     >
       <body className="min-h-dvh scroll-smooth font-sans antialiased">
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
-          <TooltipProvider>
-            <SessionProvider>
-              <TRPCReactProvider>
-                <Navbar />
+        <I18nProvider lang={language}>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            <TooltipProvider>
+              <SessionProvider>
+                <TRPCReactProvider>
+                  <Navbar session={session} />
+                  {children}
 
-                {children}
-
-                <Scene
-                  style={{
-                    position: "fixed",
-                    top: 0,
-                    left: 0,
-                    width: "100dvw",
-                    height: "100dvh",
-                    pointerEvents: "none",
-                  }}
-                />
-              </TRPCReactProvider>
-            </SessionProvider>
-          </TooltipProvider>
-        </ThemeProvider>
+                  <Scene
+                    style={{
+                      position: "fixed",
+                      top: 0,
+                      left: 0,
+                      width: "100dvw",
+                      height: "100dvh",
+                      pointerEvents: "none",
+                    }}
+                  />
+                </TRPCReactProvider>
+              </SessionProvider>
+            </TooltipProvider>
+          </ThemeProvider>
+        </I18nProvider>
 
         <Toaster />
         <TailwindIndicator />
       </body>
     </html>
   );
+}
+
+function getLanguageCookie() {
+  return cookies().get(I18N_COOKIE_NAME)?.value;
 }

@@ -37,6 +37,19 @@ const config = {
         },
       },
     ],
+    "no-restricted-imports": [
+      "error",
+      {
+        paths: [
+          {
+            name: "react-i18next",
+            importNames: ["Trans"],
+            message:
+              "Please use `~/core/ui/Trans` instead of `react-i18next/Trans`.",
+          },
+        ],
+      },
+    ],
   },
   settings: {
     tailwindcss: {

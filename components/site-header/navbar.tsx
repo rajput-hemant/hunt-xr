@@ -1,17 +1,17 @@
 import Image from "next/image";
 import Link from "next/link";
 
-import { siteConfig } from "~/config/site";
-import { auth } from "~/lib/auth";
+import type { AuthSession } from "~/lib/auth";
 
-import Button from "../ui/button";
-import If from "../ui/if";
+import { siteConfig } from "~/config/site";
+
+import { Button } from "../ui/button";
+import { If } from "../ui/if";
+import { Trans } from "../ui/trans";
 import { Header } from "./header";
 import { LogOutButton } from "./logout-button";
 
-export async function Navbar() {
-  const user = await auth();
-
+export const Navbar: React.FC<{ session: AuthSession }> = ({ session }) => {
   return (
     <Header>
       <div className="relative flex w-full items-center justify-between rounded-full py-2">
@@ -35,10 +35,10 @@ export async function Navbar() {
 
         <nav className="hidden w-full items-center justify-end gap-2 md:flex">
           <If
-            condition={user}
+            condition={session}
             fallback={
               <Button href="/login" round size="lg">
-                <span>Login</span>
+                <Trans i18nKey={"auth:signIn"} />
               </Button>
             }
           >
@@ -48,4 +48,4 @@ export async function Navbar() {
       </div>
     </Header>
   );
-}
+};
