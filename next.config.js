@@ -4,6 +4,8 @@
  */
 await import("./lib/env.js");
 
+const isDocker = process.env.IS_DOCKER === "true";
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
@@ -15,6 +17,7 @@ const nextConfig = {
       },
     ],
   },
+  output: isDocker ? "standalone" : undefined,
   // ...
 };
 

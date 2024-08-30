@@ -1,0 +1,7 @@
+services:
+  hunt-xr:
+    build:
+      dockerfile: Dockerfile
+    image: hunt-xr
+    ports:
+      - "3000:3000"
