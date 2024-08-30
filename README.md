@@ -1,122 +1,83 @@
 <div align=center>
 
-[![ntl-badge]][ntl-link] ![views] ![stars] ![forks] ![issues] ![license] ![repo-size]
+![views] ![stars] ![forks] ![issues] ![license] ![repo-size]
 
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="public/nextjs-light.svg">
-  <source media="(prefers-color-scheme: light)" srcset="public/nextjs-dark.svg">
-  <img alt="Next.js">
-</picture>
+<img
+  src="./public/logo-sm.png"
+  alt="Next.js Starter Template"
+  width="100"
+  height="100"
+/>
 
-# Next.js Starter Template
+# HuntXR
 
-### A Minimal Next.js Starter Template with TypeScript, Tailwind CSS, and pre-configured with ESLint, Prettier, and Husky.
+HuntXR is a Move to Earn web3 application that rewards users with **$POKE** tokens for physical activities like walking and discovering hidden tokens in real-world locations using augmented reality (AR). Built on the Stacks Blockchain, the app offers unique features such as peer-to-peer token hiding, community token drops, and in-app tokens for various rewards.
+
+## Building from Source
 
 </div>
 
+- Fetch latest source code from master branch.
+
+```
+git clone https://github.com/rajput-hemant/hunt-xr
+cd hunt-xr
+```
+
+- Rename **.env.example** => **.env.local**, add your own environment variables.
+
+- Run the app with VS Code or the command line:
+
+```
+bun i
+bun dev
+```
+
+<div align=center>
+
+## Tech Stack
+
+</div>
+
+- **React XR**: [React XR](https://github.com/pmndrs/xr) is used for AR experiences within the app.
+- **Next.js**: A powerful React framework
+- **Stacks Blockchain**: [Stacks Blockchain](https://www.stacks.co/build/get-started) provides decentralized infrastructure for the **$POKE** token and smart contract interactions.
+
+<div align=center>
+
 ## Features
 
-- ⚡ **[Next.js](https://nextjs.org/)** - A React Framework for Production
-- 🔥 **[App Router](https://nextjs.org/docs/app)** - It is a new paradigm for building applications using React's latest features.
-- 🎨 **[Tailwind CSS](https://tailwindcss.com/)** - A Utility-First CSS Framework for Rapid UI Development
-- 📦 **[TypeScript](https://www.typescriptlang.org/)** - A typed superset of JavaScript that compiles to plain JavaScript
-- 📝 **[ESLint](https://eslint.org/)** - The pluggable linting utility for JavaScript and JSX
-- 🛠 **[Prettier](https://prettier.io/)** - An opinionated code formatter
-- 🐶 **[Husky](https://typicode.github.io/husky/#/)** - A tool that makes Git hooks easy
-- 🚫 **[lint-staged](https://github.com/okonet/lint-staged)** - Run linters against staged git files
-- 📄 **[commitlint](https://commitlint.js.org/#/)** - Lint commit messages
-- 📦 **[bun](https://bun.sh)** - A JavaScript runtime w/ Fast, disk space efficient package manager
+</div>
 
-## Getting Started
+### Peers/Friends Token
 
-```bash
-bun create next-app -e "https://github.com/rajput-hemant/nextjs-template" <project-name>
+- **Concept**: Users can hide **$POKE** tokens in real-world locations for friends to find.
+- **Workflow**:
+  1. Player A selects a location on the app's map.
+  2. Player A hides a **$POKE** token using the app's geolocation features.
+  3. Friends are notified and can use AR to find the hidden token.
+  4. Fitness tracker integration ensures proof of location for earning tokens.
 
-npx create-next-app -e "https://github.com/rajput-hemant/nextjs-template" <project-name>
-```
+### Community Token Drop
 
-<p align="center" style="font-weight: bold;">OR</p>
+- **Concept**: Communities can airdrop tokens (e.g., $WELSH) at specific locations on the app's map.
+- **Workflow**:
+  1. Community deposits tokens into the app's smart contract.
+  2. Airdrop locations are selected on the map.
+  3. Users can find and claim tokens using AR, with additional security measures to prevent spoofing.
 
-**Install `degit` globally**
+### In-App Tokens
 
-```bash
-bun i -g degit || pnpm i -g degit || yarn global add degit || npm i -g degit
-```
+- **$POKE**: The main token, earned through walking, hidden token discovery, and more. Can be exchanged for rewards like gift cards or used to enter leaderboards.
+- **$#USER**: A unique token for each user, used to hide **$POKE** tokens for others. Limited daily usage and capped supply to maintain token economy.
 
-**Create a new project from this template**
-
-```bash
-degit rajput-hemant/nextjs-template <project-name>
-# src directory
-degit rajput-hemant/nextjs-template#src-dir <project-name>
-# tRPC
-degit rajput-hemant/nextjs-template#trpc <project-name>
-
-cd <project-name>
-```
-
-**Install dependencies**
-
-```bash
-bun i || pnpm i || yarn || npm i
-```
-
-**Initialize a new git repository _(Optional)_:**
-
-```bash
-git init
-git add .
-git commit --no-verify -m "init"
-```
-
-## Integrations
-
-[Kirimase](https://kirimase.dev) is a Next.js CLI tool that accelerates full-stack app development. It seamlessly integrates packages like ORM (Prisma or Drizzle), authentication (Auth.js, Clerk, Lucia, Kinde), UI components (Shadcn-UI), payments (Stripe), and email (Resend), following best practices.
-
-To add integrations to your project, run:
-
-```bash
-kirimase init
-```
-
-## Available Scripts
-
-In the project directory, you can run:
-
-| **Script**   | **Description**                                      |
-| ------------ | ---------------------------------------------------- |
-| `dev`        | Runs the app in the development mode.                |
-| `build`      | Builds the app for production to the `.next` folder. |
-| `start`      | Runs the built app in the production mode.           |
-| `preview`    | Builds and serves the app in the production mode.    |
-| `lint`       | Runs next lint on the project.                       |
-| `type-check` | Runs TypeScript type checker.                        |
-| `fmt`        | Formats the code with Prettier.                      |
-| `fmt:check`  | Checks if the code is formatted with Prettier.       |
-| `prepare`    | Installs husky git hooks.                            |
-
-## After Installation Checklist
-
-- [ ] Update `package.json` with your project details.
-- [ ] Update `README.md` with your project details.
-- [ ] Update `LICENSE` with your name and year.
-
-## Switching Package Manager
-
-This template uses [bun](https://bun.sh/docs/cli/install) as the default package manager. If you want to use `pnpm`, `npm` or `yarn`, you need to remove the `bun.lockb` file and run `pnpm i`, `npm i` or `yarn` to generate the lock file for the respective package manager.
-
-## Deployments
-
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/git/external?repository-url=https://github.com/rajput-hemant/nextjs-template)
-[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/rajput-hemant/nextjs-template)
+<div align=center>
 
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ## Contributors:
-
-<div align=center>
 
 [![][contributors]][contributors-graph]
 
@@ -126,14 +87,12 @@ _Note: It may take up to 24h for the [contrib.rocks][contrib-rocks] plugin to up
 
 <!----------------------------------{ Labels }--------------------------------->
 
-[views]: https://komarev.com/ghpvc/?username=nextjs-template&label=view%20counter&color=red&style=flat
-[repo-size]: https://img.shields.io/github/repo-size/rajput-hemant/nextjs-template
-[issues]: https://img.shields.io/github/issues-raw/rajput-hemant/nextjs-template
-[license]: https://img.shields.io/github/license/rajput-hemant/nextjs-template
-[forks]: https://img.shields.io/github/forks/rajput-hemant/nextjs-template?style=flat
-[stars]: https://img.shields.io/github/stars/rajput-hemant/nextjs-template
-[contributors]: https://contrib.rocks/image?repo=rajput-hemant/nextjs-template&max=500
-[contributors-graph]: https://github.com/rajput-hemant/nextjs-template/graphs/contributors
+[views]: https://komarev.com/ghpvc/?username=hunt-xr&label=view%20counter&color=red&style=flat
+[repo-size]: https://img.shields.io/github/repo-size/rajput-hemant/hunt-xr
+[issues]: https://img.shields.io/github/issues-raw/rajput-hemant/hunt-xr
+[license]: https://img.shields.io/github/license/rajput-hemant/hunt-xr
+[forks]: https://img.shields.io/github/forks/rajput-hemant/hunt-xr?style=flat
+[stars]: https://img.shields.io/github/stars/rajput-hemant/hunt-xr
+[contributors]: https://contrib.rocks/image?repo=rajput-hemant/hunt-xr&max=500
+[contributors-graph]: https://github.com/rajput-hemant/hunt-xr/graphs/contributors
 [contrib-rocks]: https://contrib.rocks/preview?repo=rajput-hemant%2Fnextjs-template
-[ntl-badge]: https://api.netlify.com/api/v1/badges/6955f80c-0747-4947-a344-e7c647012cbe/deploy-status
-[ntl-link]: https://app.netlify.com/sites/react-template-vite/deploys
