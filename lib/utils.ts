@@ -1,4 +1,5 @@
 import { clsx } from "clsx";
+import { toast } from "sonner";
 import { twMerge } from "tailwind-merge";
 
 import type { ClassValue } from "clsx";
@@ -90,4 +91,11 @@ export function setCookie(
   }
 
   document.cookie = cookieText;
+}
+
+export function currentlyInDev() {
+  toast("Currently in development", {
+    description:
+      "This feature is currently in development and will be available soon.",
+  });
 }

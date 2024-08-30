@@ -9,6 +9,7 @@ import { toast } from "sonner";
 
 import { Button } from "~/components/ui/button";
 import { Trans } from "~/components/ui/trans";
+import { currentlyInDev } from "~/lib/utils";
 
 import { EmailLoginForm } from "./email-login-form";
 import { OAuthLogin } from "./oauth-logins";
@@ -58,7 +59,8 @@ export function LoginForm() {
           block
           disabled={disabled}
           variant="outline"
-          onClick={() => setIsEmailMode(false)}
+          // onClick={() => setIsEmailMode(false)}
+          onClick={currentlyInDev}
         >
           <Phone className="mr-2 size-4" /> <Trans i18nKey="auth:usePhone" />
         </Button>

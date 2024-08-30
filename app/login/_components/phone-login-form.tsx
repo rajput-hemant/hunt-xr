@@ -158,6 +158,12 @@ export const PhoneLoginForm: React.FC<{
                           <SelectGroup>
                             {getCountries().map((country) => (
                               <SelectItem key={country} value={country}>
+                                <span
+                                  className={cn(
+                                    "fi mr-2",
+                                    `fi-${country.toLowerCase()}`,
+                                  )}
+                                />
                                 {country}
                               </SelectItem>
                             ))}
