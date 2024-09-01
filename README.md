@@ -24,13 +24,34 @@ git clone https://github.com/rajput-hemant/hunt-xr
 cd hunt-xr
 ```
 
-- Rename **.env.example** => **.env.local**, add your own environment variables.
+- Rename **.env.example** => **.env**, add your own environment variables.
 
 - Run the app with VS Code or the command line:
 
 ```
 bun i
 bun dev
+```
+
+</div>
+
+<div align=center>
+
+### Docker and Makefile
+
+</div>
+
+- Build the Docker Image and start the container:
+
+```
+make build
+make start
+```
+
+- Stop the Docker container:
+
+```
+make stop
 ```
 
 <div align=center>
