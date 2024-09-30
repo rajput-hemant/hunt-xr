@@ -12,6 +12,7 @@ import type { Metadata } from "next";
 
 import { ourFileRouter } from "~/app/api/uploadthing/core";
 import { Navbar } from "~/components/site-header/navbar";
+import { StxConnect } from "~/components/stx/stx-connect";
 import { TailwindIndicator } from "~/components/tailwind-indicator";
 import { ThemeProvider } from "~/components/theme-provider";
 import { Toaster } from "~/components/ui/sonner";
@@ -81,36 +82,37 @@ export default async function RootLayout({
           <ThemeProvider
             attribute="class"
             defaultTheme="system"
-            enableSystem
             disableTransitionOnChange
           >
             <TooltipProvider>
               <SessionProvider>
-                <TRPCReactProvider>
-                  <Navbar session={session} />
-                  <NextSSRPlugin
-                    /**
-                     * The `extractRouterConfig` will extract **only** the route configs
-                     * from the router to prevent additional information from being
-                     * leaked to the client. The data passed to the client is the same
-                     * as if you were to fetch `/api/uploadthing` directly.
-                     */
-                    routerConfig={extractRouterConfig(ourFileRouter)}
-                  />
+                <StxConnect>
+                  <TRPCReactProvider>
+                    <Navbar session={session} />
+                    <NextSSRPlugin
+                      /**
+                       * The `extractRouterConfig` will extract **only** the route configs
+                       * from the router to prevent additional information from being
+                       * leaked to the client. The data passed to the client is the same
+                       * as if you were to fetch `/api/uploadthing` directly.
+                       */
+                      routerConfig={extractRouterConfig(ourFileRouter)}
+                    />
 
-                  {children}
+                    {children}
 
-                  <Scene
-                    style={{
-                      position: "fixed",
-                      top: 0,
-                      left: 0,
-                      width: "100dvw",
-                      height: "100dvh",
-                      pointerEvents: "none",
-                    }}
-                  />
-                </TRPCReactProvider>
+                    <Scene
+                      style={{
+                        position: "fixed",
+                        top: 0,
+                        left: 0,
+                        width: "100dvw",
+                        height: "100dvh",
+                        pointerEvents: "none",
+                      }}
+                    />
+                  </TRPCReactProvider>
+                </StxConnect>
               </SessionProvider>
             </TooltipProvider>
           </ThemeProvider>
