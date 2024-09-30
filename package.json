@@ -38,7 +38,7 @@
     "@react-three/fiber": "^8.17.5",
     "@react-three/xr": "^6.2.1",
     "@simplewebauthn/browser": "=10.0.0",
-    "@simplewebauthn/server": "=9.0.1",
+    "@simplewebauthn/server": "=10.0.1",
     "@stacks/connect": "^7.7.1",
     "@t3-oss/env-nextjs": "^0.11.0",
     "@trpc/client": "^11.0.0-rc.485",
