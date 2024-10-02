@@ -10,6 +10,7 @@ import { If } from "../ui/if";
 import { Trans } from "../ui/trans";
 import { Header } from "./header";
 import { LogOutButton } from "./logout-button";
+import { ThemeToggle } from "./theme-toggle";
 
 export const Navbar: React.FC<{ session: AuthSession }> = ({ session }) => {
   return (
@@ -34,6 +35,7 @@ export const Navbar: React.FC<{ session: AuthSession }> = ({ session }) => {
         </div>
 
         <nav className="hidden w-full items-center justify-end gap-2 md:flex">
+          <ThemeToggle />
           <If
             condition={session}
             fallback={

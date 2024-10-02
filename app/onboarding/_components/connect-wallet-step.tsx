@@ -2,8 +2,6 @@ import React, { useState } from "react";
 
 import { ConnectWallet } from "~/components/connect-wallet/connect-wallet";
 import { Button } from "~/components/ui/button";
-import { Heading } from "~/components/ui/heading";
-import { SubHeading } from "~/components/ui/subheading";
 import { Trans } from "~/components/ui/trans";
 
 export const ConnectWalletStep: React.FCC<{

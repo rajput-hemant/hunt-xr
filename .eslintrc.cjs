@@ -64,7 +64,7 @@ const config = {
   parserOptions: {
     project: true,
   },
-  ignorePatterns: ["sst.config.ts"],
+  ignorePatterns: ["sst.config.ts", "blockchain"],
 };
 
 module.exports = config;

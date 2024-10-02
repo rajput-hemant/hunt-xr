@@ -30,7 +30,7 @@ export const Header: React.FCC = ({ children }) => {
     >
       <div
         className={cn(
-          "container block w-full border-b-2 border-foreground px-3 py-0.5 transition-colors duration-200 ease-out sm:rounded-full sm:border",
+          "container block w-full border-b-2 border-foreground px-3 py-0.5 shadow-md transition-colors duration-200 ease-out sm:rounded-full sm:border",
           isScrolled && "-translate-y-24 transition-transform duration-300",
         )}
       >

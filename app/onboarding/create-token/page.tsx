@@ -1,7 +1,7 @@
-import { Button } from "~/components/ui/button";
 import { Heading } from "~/components/ui/heading";
 import { SubHeading } from "~/components/ui/subheading";
 import { Trans } from "~/components/ui/trans";
+import { UserTokenManager } from "~/components/user-token/user-token-manager";
 
 export default function CreateTokenPage() {
   return (
@@ -16,9 +16,7 @@ export default function CreateTokenPage() {
         </SubHeading>
       </div>
 
-      <Button>
-        <Trans i18nKey="onboarding:createToken.heading" />
-      </Button>
+      <UserTokenManager />
     </div>
   );
 }
