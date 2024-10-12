@@ -1,21 +1,43 @@
+import { Clarinet, Tx, Chain, Account, types } from 'clarinet-js';
+import { assertEquals } from 'chai';
 
-import { describe, expect, it } from "vitest";
+Clarinet.test({
+    name: "Ensure that token claims work",
+    async fn(chain: Chain, accounts: Map<string, Account>) {
+        const deployer = accounts.get("deployer")!;
+        const user1 = accounts.get("wallet_1")!;
 
-const accounts = simnet.getAccounts();
-const address1 = accounts.get("wallet_1")!;
+        let block = chain.mineBlock([
+            Tx.contractCall("user-token", "claim-tokens", [], user1.address)
+        ]);
+        assertEquals(block.receipts[0].result.expectOk(), true);
 
-/*
-  The test below is an example. To learn more, read the testing documentation here:
-  https://docs.hiro.so/clarinet/feature-guides/test-contract-with-clarinet-sdk
-*/
-
-describe("example tests", () => {
-  it("ensures simnet is well initalised", () => {
-    expect(simnet.blockHeight).toBeDefined();
-  });
-
-  // it("shows an example", () => {
-  //   const { result } = simnet.callReadOnlyFn("counter", "get-counter", [], address1);
-  //   expect(result).toBeUint(0);
-  // });
+        // Test balance
+        let balance = chain.callReadOnlyFn("user-token", "get-balance", [types.principal(user1.address)], deployer.address);
+        assertEquals(balance.result.expectOk(), types.uint(10000));
+    }
 });
+
+Clarinet.test({
+    name: "Ensure that blacklisting works",
+    async fn(chain: Chain, accounts: Map<string, Account>) {
+        const deployer = accounts.get("deployer")!;
+        const user1 = accounts.get("wallet_1")!;
+
+        let block = chain.mineBlock([
+            Tx.contractCall("user-token", "blacklist-address", [
+                types.principal(user1.address),
+                types.bool(true)
+            ], deployer.address)
+        ]);
+        assertEquals(block.receipts[0].result.expectOk(), true);
+
+        // Try to claim tokens while blacklisted
+        block = chain.mineBlock([
+            Tx.contractCall("user-token", "claim-tokens", [], user1.address)
+        ]);
+        assertEquals(block.receipts[0].result.expectErr(), types.uint(104)); // err-blacklisted
+    }
+});
+
+// Add more tests for new functionality...
