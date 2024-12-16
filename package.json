@@ -42,7 +42,7 @@
     "@stacks/connect": "^7.7.1",
     "@stacks/connect-react": "^22.4.2",
     "@stacks/network": "^6.16.0",
-    "@stacks/transactions": "^6.16.1",
+    "@stacks/transactions": "^7.0.2",
     "@t3-oss/env-nextjs": "^0.11.0",
     "@trpc/client": "^11.0.0-rc.485",
     "@trpc/react-query": "^11.0.0-rc.485",
