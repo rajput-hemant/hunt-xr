@@ -35,7 +35,7 @@
     "@radix-ui/react-slot": "^1.1.0",
     "@radix-ui/react-tooltip": "^1.1.2",
     "@react-three/drei": "^10.0.1",
-    "@react-three/fiber": "^8.17.5",
+    "@react-three/fiber": "^9.0.4",
     "@react-three/xr": "^6.2.1",
     "@simplewebauthn/browser": "=13.0.0",
     "@simplewebauthn/server": "=13.0.0",
