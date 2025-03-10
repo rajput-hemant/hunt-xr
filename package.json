@@ -69,7 +69,7 @@
     "react-hook-form": "^7.53.0",
     "react-i18next": "^15.0.1",
     "server-only": "^0.0.1",
-    "sonner": "^1.5.0",
+    "sonner": "^2.0.1",
     "sst": "ion",
     "superjson": "^2.2.1",
     "tailwind-merge": "^3.0.1",
